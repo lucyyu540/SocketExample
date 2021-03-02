@@ -1,0 +1,34 @@
+delimiter //
+create procedure MakeAccount( IN id INT, IN name varchar(20),  IN balance int)
+begin
+insert into account (accid, name, balance) values (id, name, balance);
+end //
+delimiter ;
+
+delimiter //
+create procedure SelectAccount(IN  id INT, OUT retname varchar(20), OUT retbalance int, OUT  retnewtime timestamp)
+begin
+select name, balance, newtime into retname, retbalance, retnewtime from account where accid = id;
+end //
+delimiter ;
+
+delimiter //
+create procedure InputAccount(IN  id INT, IN amount int)
+begin
+update account set balance = balance + amount where accid = id;
+end //
+delimiter ;
+
+delimiter //
+create procedure OutputAccount(IN  id INT, IN amount int)
+begin
+update account set balance = balance - amount where accid = id and balance >= amount;
+end //
+delimiter ;
+
+delimiter //
+create procedure DeleteAccount(IN  id int)
+begin
+delete from account where accid = id;
+end //
+delimiter ;
